@@ -1,21 +1,45 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import FileUpload from './components/FileUpload';
+import EnzymeSelector from './components/EnzymeSelector';
+import Modifications from './components/Modifications';
+
+var fastaParser = require('fasta-js');
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      fastaEntries: [],
+      numberOfProteins: 0,
+      enzyme: 'trypsin',
+    };
+  }
+
+  getFastaData = (fastaText) => {
+    var fasta = new fastaParser();
+    var entries = fasta.parse(fastaText);
+    this.setState({
+      fastaEntries: entries,
+      numberOfProteins: entries.length,
+    });
+  }
+
+  setEnzyme = (enzyme) => {
+    this.setState({
+      enzyme: enzyme,
+    });
+    console.log(enzyme);
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        
 
-        <FileUpload />
+        <FileUpload getFastaCallback={this.getFastaData} />
+        <EnzymeSelector setEnzymeCallback={this.setEnzyme} />
+        <Modifications />
       </div>
     );
   }

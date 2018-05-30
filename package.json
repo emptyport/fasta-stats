@@ -6,6 +6,8 @@
   "author": "Michael Porter <michaelporter.chemistry@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "fasta-js": "^1.0.0",
+    "rc-progress": "^2.2.5",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-files": "^2.4.5",
