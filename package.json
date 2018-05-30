@@ -1,0 +1,24 @@
+{
+  "name": "fasta-stats",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://emptyport.github.io/fasta-stats",
+  "author": "Michael Porter <michaelporter.chemistry@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-scripts": "1.1.4"
+  },
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "gh-pages": "^1.1.0"
+  }
+}
