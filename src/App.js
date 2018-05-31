@@ -3,8 +3,10 @@ import './App.css';
 import FileUpload from './components/FileUpload';
 import EnzymeSelector from './components/EnzymeSelector';
 import Modifications from './components/Modifications';
+import { Line } from 'rc-progress';
 
 var fastaParser = require('fasta-js');
+var peptideCutter = require('peptide-cutter');
 
 class App extends Component {
   constructor(props) {
@@ -29,10 +31,12 @@ class App extends Component {
           'id': 2
         }
       ],
+      digestProgress: 0,
     };
 
     this.removeModification = this.removeModification.bind(this);
     this.saveModification = this.saveModification.bind(this);
+    this.runAnalysis = this.runAnalysis.bind(this);
   }
 
   getFastaData = (fastaText) => {
@@ -66,6 +70,29 @@ class App extends Component {
       modifications: remainder
     });
   }
+
+  runAnalysis = () => {
+    var options = {
+      'enzyme': this.state.enzyme,
+      'num_missed_cleavages': 2,
+      'min_length': 2,
+      'max_length': 30
+    };
+
+    var peptideList = [];
+
+    
+     
+    var cutter = new peptideCutter(options);
+    for(var i=0; i<this.state.fastaEntries.length; i++) {
+      var peptides = cutter.cleave(this.state.fastaEntries[i].sequence);
+      peptideList.push.apply(peptideList, peptides);
+      var progress = parseInt( (((i+1) / this.state.numberOfProteins) * 100), 10 );
+        this.setState({
+          digestProgress: progress
+        });
+    }
+  }
   
 
 
@@ -81,6 +108,9 @@ class App extends Component {
           removeModificationCallback={this.removeModification}
           saveModificationCallback={this.saveModification}
         />
+
+        <button onClick={this.runAnalysis}>Run</button>
+        <Line percent={this.state.digestProgress} strokeWidth="2" strokeColor="#0066ff" />
       </div>
     );
   }
