@@ -13,7 +13,26 @@ class App extends Component {
       fastaEntries: [],
       numberOfProteins: 0,
       enzyme: 'trypsin',
+      modifications: [
+        {
+          'name': 'Carbamidomethylation',
+          'residues': ['C'],
+          'type': 'fixed',
+          'mass': 57.02,
+          'id': 1
+        },
+        {
+          'name': 'Oxidation',
+          'residues': ['O'],
+          'type': 'variable',
+          'mass': 15.99,
+          'id': 2
+        }
+      ],
     };
+
+    this.removeModification = this.removeModification.bind(this);
+    this.saveModification = this.saveModification.bind(this);
   }
 
   getFastaData = (fastaText) => {
@@ -32,6 +51,24 @@ class App extends Component {
     console.log(enzyme);
   }
 
+  saveModification = (newMod) => {
+    this.setState({
+      modfications: this.state.modifications.push(newMod)
+    });
+  }
+
+  removeModification = (id) => {
+    const remainder = this.state.modifications.filter((mod) => {
+      if(mod.id !== id) return mod;
+      return null;
+    });
+    this.setState({
+      modifications: remainder
+    });
+  }
+  
+
+
   render() {
     return (
       <div className="App">
@@ -39,7 +76,11 @@ class App extends Component {
 
         <FileUpload getFastaCallback={this.getFastaData} />
         <EnzymeSelector setEnzymeCallback={this.setEnzyme} />
-        <Modifications />
+        <Modifications 
+          modifications={this.state.modifications}
+          removeModificationCallback={this.removeModification}
+          saveModificationCallback={this.saveModification}
+        />
       </div>
     );
   }

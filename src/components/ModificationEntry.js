@@ -8,17 +8,17 @@ class ModificationEntry extends Component {
       
     }
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleChange = (evt) => {
-    
+  handleClick = (evt) => {
+    this.props.removeModificationCallback(this.props.id);
   }
 
   render() {
     return (
       <div>
-          {this.props.name} - {this.props.residues} - {this.props.type} - {this.props.mass} <button>Remove</button>
+          {this.props.name} - {this.props.residues} - {this.props.type} - {this.props.mass} <button onClick={this.handleClick}>Remove</button>
       </div>
     );
   }

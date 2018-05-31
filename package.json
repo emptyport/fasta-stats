@@ -11,7 +11,9 @@
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-files": "^2.4.5",
-    "react-scripts": "1.1.4"
+    "react-modal": "^3.4.4",
+    "react-scripts": "1.1.4",
+    "react-select": "^1.2.1"
   },
   "scripts": {
     "predeploy": "npm run build",
