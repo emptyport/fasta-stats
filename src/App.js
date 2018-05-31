@@ -13,7 +13,11 @@ class App extends Component {
     super(props);
     this.state = {
       fastaEntries: [],
+      unmodifiedPeptideLengths: [],
+      modifiedPeptideMasses: [],
       numberOfProteins: 0,
+      numberOfUnmodifiedPeptides: 0,
+      numberOfModifiedPeptides: 0,
       enzyme: 'trypsin',
       modifications: [
         {
@@ -78,20 +82,26 @@ class App extends Component {
       'min_length': 2,
       'max_length': 30
     };
-
-    var peptideList = [];
-
-    
      
+    let peptideList = [];
+
     var cutter = new peptideCutter(options);
     for(var i=0; i<this.state.fastaEntries.length; i++) {
       var peptides = cutter.cleave(this.state.fastaEntries[i].sequence);
-      peptideList.push.apply(peptideList, peptides);
+      for(var j=0; j<peptides.length; j++) {
+        this.state.unmodifiedPeptideLengths.push(peptides[j].length);
+        
+      }
       var progress = parseInt( (((i+1) / this.state.numberOfProteins) * 100), 10 );
-        this.setState({
-          digestProgress: progress
-        });
+      this.setState({
+        digestProgress: progress,
+      });
     }
+    console.log(peptideList.length);
+    /*this.setState({
+      unmodifiedPeptides: peptideList,
+      numberOfUnmodifiedPeptides: peptideList.length
+    });*/
   }
   
 
