@@ -3,16 +3,19 @@ import './App.css';
 import FileUpload from './components/FileUpload';
 import EnzymeSelector from './components/EnzymeSelector';
 import Modifications from './components/Modifications';
+import ProteinList from './components/ProteinList';
 import { Line } from 'rc-progress';
 
 var fastaParser = require('fasta-js');
 var peptideCutter = require('peptide-cutter');
+var peptideModifier = require('peptide-modifier');
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       fastaEntries: [],
+      filteredFastaEntries: [],
       unmodifiedPeptideLengths: [],
       modifiedPeptideMasses: [],
       numberOfProteins: 0,
@@ -49,6 +52,7 @@ class App extends Component {
     this.setState({
       fastaEntries: entries,
       numberOfProteins: entries.length,
+      filteredFastaEntries: entries,
     });
   }
 
@@ -89,8 +93,8 @@ class App extends Component {
     for(var i=0; i<this.state.fastaEntries.length; i++) {
       var peptides = cutter.cleave(this.state.fastaEntries[i].sequence);
       for(var j=0; j<peptides.length; j++) {
-        this.state.unmodifiedPeptideLengths.push(peptides[j].length);
-        
+        peptideList.push(peptides[j]);
+
       }
       var progress = parseInt( (((i+1) / this.state.numberOfProteins) * 100), 10 );
       this.setState({
@@ -112,6 +116,13 @@ class App extends Component {
         
 
         <FileUpload getFastaCallback={this.getFastaData} />
+        <ProteinList entries={this.state.filteredFastaEntries} />
+
+
+        <br />
+        <br />
+        <br />
+
         <EnzymeSelector setEnzymeCallback={this.setEnzyme} />
         <Modifications 
           modifications={this.state.modifications}
