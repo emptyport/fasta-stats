@@ -16,6 +16,7 @@ class App extends Component {
     this.state = {
       fastaEntries: [],
       filteredFastaEntries: [],
+      selectedEntry: null,
       unmodifiedPeptideLengths: [],
       modifiedPeptideMasses: [],
       numberOfProteins: 0,
@@ -44,6 +45,30 @@ class App extends Component {
     this.removeModification = this.removeModification.bind(this);
     this.saveModification = this.saveModification.bind(this);
     this.runAnalysis = this.runAnalysis.bind(this);
+    this.setSelectedEntry = this.setSelectedEntry.bind(this);
+    this.DisplaySelectedProtein = this.DisplaySelectedProtein.bind(this);
+  }
+
+  DisplaySelectedProtein = () => {
+
+    if(this.state.selectedEntry === null) {
+      return (<div>Hello</div>);
+    }
+    else {
+      console.log(this.state.filteredFastaEntries[this.state.selectedEntry].id);
+
+      return (
+        <div>
+          {this.state.filteredFastaEntries[this.state.selectedEntry].id}
+        </div>
+      );
+    }
+  }
+
+  setSelectedEntry = (index) => {
+    this.setState({
+      selectedEntry: index
+    });
   }
 
   getFastaData = (fastaText) => {
@@ -116,8 +141,10 @@ class App extends Component {
         
         <div className="grid-container">
           <FileUpload className="grid-item file-upload-item" getFastaCallback={this.getFastaData} />
-          <ProteinList className="grid-item protein-list-item" entries={this.state.filteredFastaEntries} />
-          <div className="empty-grid-item">Hello</div>
+          <ProteinList className="grid-item protein-list-item" entries={this.state.filteredFastaEntries} handleClickCallback={this.setSelectedEntry} />
+          <div className="grid-item empty-grid-item">
+            <this.DisplaySelectedProtein />
+          </div>
 
          
         </div>

@@ -1,7 +1,18 @@
 .proteinEntry {
-    color: black;
+    text-align: left;
+    padding: 7px;
+    border: 1px solid #d1d3de   
 }
 
 .proteinEntry:hover {
-    color: red;
+    background-color: #d1d3de;
+}
+
+.selectedProtein {
+    background-color: #d1d3de;
+}
+
+.listHolder {
+    overflow: auto;
+    height: 10%;
 }

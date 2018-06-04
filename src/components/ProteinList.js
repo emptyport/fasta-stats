@@ -9,15 +9,17 @@ class ProteinList extends Component {
 
     }
 
-   
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  
+  handleClick(index) {
+    this.props.handleClickCallback(index);
+  }
 
   render() {
     return (
-      <div>
-        {this.props.entries.map((entry, index) => <div  className="proteinEntry" key={index}>{entry.id}</div>)}        
+      <div className="listHolder">
+        {this.props.entries.map((entry, index) => <div className="proteinEntry" key={index} onClick={()=>this.handleClick(index)}>{entry.id}</div>)}        
       </div>
     );
   }
