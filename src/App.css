@@ -29,19 +29,27 @@
 
 .grid-container {
   display: grid;
+  grid-template-columns: 33% 33% 34%;
+  grid-template-rows: 25% 25% 25% 25%;
 }
 
 .file-upload-item {
-  grid-column: 1 / 1;
-  grid-row: 1 / 1;
+  grid-column-start: 1;
+  grid-column-end: 1;
+  grid-row-start: 1;
+  grid-row-end: 1;
 }
 
 .protein-list-item {
-  grid-column: 1 / 1;
-  grid-row: 2 / 4;
+  grid-column-start: 1;
+  grid-column-end: 1;
+  grid-row-start: 2;
+  grid-row-end: span 3;
 }
 
 .empty-grid-item {
-  grid-column: 2 / 3;
-  grid-row: 2 / 4;
+  grid-column-start: 2;
+  grid-column-end: span 2;
+  grid-row-start: 1;
+  grid-row-end: span 4;
 }

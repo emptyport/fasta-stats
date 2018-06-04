@@ -117,9 +117,19 @@ class App extends Component {
         <div className="grid-container">
           <FileUpload className="grid-item file-upload-item" getFastaCallback={this.getFastaData} />
           <ProteinList className="grid-item protein-list-item" entries={this.state.filteredFastaEntries} />
-          <div className="empty-grid-item"></div>
+          <div className="empty-grid-item">Hello</div>
 
-          <br />
+         
+        </div>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+/*
+ <br />
           <br />
           <br />
 
@@ -132,10 +142,4 @@ class App extends Component {
 
           <button onClick={this.runAnalysis}>Run</button>
           <Line percent={this.state.digestProgress} strokeWidth="2" strokeColor="#0066ff" />
-        </div>
-      </div>
-    );
-  }
-}
-
-export default App;
+          */
