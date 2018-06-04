@@ -114,24 +114,25 @@ class App extends Component {
     return (
       <div className="App">
         
+        <div className="grid-container">
+          <FileUpload className="grid-item file-upload-item" getFastaCallback={this.getFastaData} />
+          <ProteinList className="grid-item protein-list-item" entries={this.state.filteredFastaEntries} />
+          <div className="empty-grid-item"></div>
 
-        <FileUpload getFastaCallback={this.getFastaData} />
-        <ProteinList entries={this.state.filteredFastaEntries} />
+          <br />
+          <br />
+          <br />
 
+          <EnzymeSelector setEnzymeCallback={this.setEnzyme} />
+          <Modifications 
+            modifications={this.state.modifications}
+            removeModificationCallback={this.removeModification}
+            saveModificationCallback={this.saveModification}
+          />
 
-        <br />
-        <br />
-        <br />
-
-        <EnzymeSelector setEnzymeCallback={this.setEnzyme} />
-        <Modifications 
-          modifications={this.state.modifications}
-          removeModificationCallback={this.removeModification}
-          saveModificationCallback={this.saveModification}
-        />
-
-        <button onClick={this.runAnalysis}>Run</button>
-        <Line percent={this.state.digestProgress} strokeWidth="2" strokeColor="#0066ff" />
+          <button onClick={this.runAnalysis}>Run</button>
+          <Line percent={this.state.digestProgress} strokeWidth="2" strokeColor="#0066ff" />
+        </div>
       </div>
     );
   }

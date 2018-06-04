@@ -26,3 +26,22 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.grid-container {
+  display: grid;
+}
+
+.file-upload-item {
+  grid-column: 1 / 1;
+  grid-row: 1 / 1;
+}
+
+.protein-list-item {
+  grid-column: 1 / 1;
+  grid-row: 2 / 4;
+}
+
+.empty-grid-item {
+  grid-column: 2 / 3;
+  grid-row: 2 / 4;
+}

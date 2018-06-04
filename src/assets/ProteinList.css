@@ -1,0 +1,7 @@
+.proteinEntry {
+    color: black;
+}
+
+.proteinEntry:hover {
+    color: red;
+}

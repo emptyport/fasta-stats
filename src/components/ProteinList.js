@@ -17,7 +17,7 @@ class ProteinList extends Component {
   render() {
     return (
       <div>
-        {this.props.entries.map((entry, index) => <div key={index}>{entry.id}</div>)}        
+        {this.props.entries.map((entry, index) => <div  className="proteinEntry" key={index}>{entry.id}</div>)}        
       </div>
     );
   }
