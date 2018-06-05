@@ -18,7 +18,7 @@ class ProteinList extends Component {
 
   render() {
     return (
-      <div className="listHolder">
+      <div className="grid-item listHolder">
         {this.props.entries.map((entry, index) => <div className="proteinEntry" key={index} onClick={()=>this.handleClick(index)}>{entry.id}</div>)}        
       </div>
     );

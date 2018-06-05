@@ -37,7 +37,7 @@ class FileUpload extends Component {
 
   render() {
     return (
-      <div>
+      <div className="grid-item file-upload-item">
         <div className="FileUpload">
           <Files
             className='files-dropzone'

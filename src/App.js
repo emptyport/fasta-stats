@@ -4,6 +4,7 @@ import FileUpload from './components/FileUpload';
 import EnzymeSelector from './components/EnzymeSelector';
 import Modifications from './components/Modifications';
 import ProteinList from './components/ProteinList';
+import IndividualProteinView from './components/IndividualProteinView';
 import { Line } from 'rc-progress';
 
 var fastaParser = require('fasta-js');
@@ -59,7 +60,12 @@ class App extends Component {
 
       return (
         <div>
-          {this.state.filteredFastaEntries[this.state.selectedEntry].id}
+          <div className="sequenceTitle">
+            {this.state.filteredFastaEntries[this.state.selectedEntry].id}
+          </div>
+
+          <IndividualProteinView sequence={this.state.filteredFastaEntries[this.state.selectedEntry].sequence} />
+
         </div>
       );
     }
@@ -140,12 +146,14 @@ class App extends Component {
       <div className="App">
         
         <div className="grid-container">
-          <FileUpload className="grid-item file-upload-item" getFastaCallback={this.getFastaData} />
-          <ProteinList className="grid-item protein-list-item" entries={this.state.filteredFastaEntries} handleClickCallback={this.setSelectedEntry} />
-          <div className="grid-item empty-grid-item">
+
+          <FileUpload getFastaCallback={this.getFastaData} />
+
+          <ProteinList entries={this.state.filteredFastaEntries} handleClickCallback={this.setSelectedEntry} />
+
+          <div className="grid-item individual-protein-item">
             <this.DisplaySelectedProtein />
           </div>
-
          
         </div>
       </div>
