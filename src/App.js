@@ -5,11 +5,14 @@ import EnzymeSelector from './components/EnzymeSelector';
 import Modifications from './components/Modifications';
 import ProteinList from './components/ProteinList';
 import IndividualProteinView from './components/IndividualProteinView';
+import SearchInput, {createFilter} from 'react-search-input'
 import { Line } from 'rc-progress';
 
 var fastaParser = require('fasta-js');
 var peptideCutter = require('peptide-cutter');
 var peptideModifier = require('peptide-modifier');
+
+const KEYS_TO_FILTERS = ['id', 'sequence'];
 
 class App extends Component {
   constructor(props) {
@@ -18,6 +21,7 @@ class App extends Component {
       fastaEntries: [],
       filteredFastaEntries: [],
       selectedEntry: null,
+      searchTerm: '',
       unmodifiedPeptideLengths: [],
       modifiedPeptideMasses: [],
       numberOfProteins: 0,
@@ -48,6 +52,7 @@ class App extends Component {
     this.runAnalysis = this.runAnalysis.bind(this);
     this.setSelectedEntry = this.setSelectedEntry.bind(this);
     this.DisplaySelectedProtein = this.DisplaySelectedProtein.bind(this);
+    this.searchUpdated = this.searchUpdated.bind(this)
   }
 
   DisplaySelectedProtein = () => {
@@ -138,18 +143,30 @@ class App extends Component {
       numberOfUnmodifiedPeptides: peptideList.length
     });*/
   }
-  
+
+  searchUpdated (term) {
+    this.setState({
+      searchTerm: term
+    });
+  }  
 
 
   render() {
+    
+    const filteredFastaEntries = this.state.fastaEntries.filter(createFilter(this.state.searchTerm), KEYS_TO_FILTERS);
+
     return (
       <div className="App">
         
         <div className="grid-container">
 
-          <FileUpload getFastaCallback={this.getFastaData} />
+          <div className="grid-item file-upload-item">
+            <FileUpload getFastaCallback={this.getFastaData} />
+            <SearchInput className="search-input" onChange={this.searchUpdated} />
+          </div>
 
-          <ProteinList entries={this.state.filteredFastaEntries} handleClickCallback={this.setSelectedEntry} />
+
+          <ProteinList entries={filteredFastaEntries} handleClickCallback={this.setSelectedEntry} />
 
           <div className="grid-item individual-protein-item">
             <this.DisplaySelectedProtein />
