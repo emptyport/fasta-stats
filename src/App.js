@@ -148,12 +148,14 @@ class App extends Component {
     this.setState({
       searchTerm: term
     });
+
+    this.state.filteredFastaEntries = this.state.fastaEntries.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS));
   }  
 
 
   render() {
     
-    const filteredFastaEntries = this.state.fastaEntries.filter(createFilter(this.state.searchTerm), KEYS_TO_FILTERS);
+    
 
     return (
       <div className="App">
@@ -166,7 +168,7 @@ class App extends Component {
           </div>
 
 
-          <ProteinList entries={filteredFastaEntries} handleClickCallback={this.setSelectedEntry} />
+          <ProteinList entries={this.state.filteredFastaEntries} handleClickCallback={this.setSelectedEntry} />
 
           <div className="grid-item individual-protein-item">
             <this.DisplaySelectedProtein />
